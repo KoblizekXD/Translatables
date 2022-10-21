@@ -1,6 +1,7 @@
 package com.koblizek.translatables;
 
 import com.koblizek.translatables.lang.Language;
+import com.koblizek.translatables.lang.Languages;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ public final class Translations {
 
     private Translations() {}
 
-    public static List<Language> loadLanguages(String directory) {
+    public static Languages loadLanguages(String directory) {
         File dir = new File(directory);
         if (!dir.isDirectory() || !dir.exists())
             throw new RuntimeException("Directory either not exists or it's not directory");
@@ -30,7 +31,7 @@ public final class Translations {
             }
             languages.add(new Language(jsonFile, content.toString()));
         }
-        return languages;
+        return new Languages(languages);
     }
     public static void setCurrentLanguage(Language language) {
         Translations.language = language;
